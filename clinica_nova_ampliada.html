@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica Nova</title>
+  <style>
+    :root{
+      --azul:#0f4c81;
+      --azul-oscuro:#12395d;
+      --azul-claro:#eaf4fb;
+      --azul-medio:#4b8bbd;
+      --texto:#17324d;
+      --gris:#637381;
+      --fondo:#f7fafc;
+      --blanco:#ffffff;
+      --borde:#dce6ee;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--fondo);
+      color:var(--texto);
+      line-height:1.5;
+    }
+
+    section[id]{scroll-margin-top:90px}
+
+    .topbar{
+      background:var(--azul);
+      color:white;
+      padding:8px 20px;
+      text-align:center;
+      font-size:14px;
+    }
+
+    header{
+      background:white;
+      border-bottom:1px solid var(--borde);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+
+    .nav{
+      max-width:1100px;
+      margin:auto;
+      padding:16px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      font-size:22px;
+      color:var(--azul);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .logo{
+      width:38px;
+      height:38px;
+      border-radius:10px;
+      background:var(--azul-claro);
+      display:grid;
+      place-items:center;
+      font-size:22px;
+    }
+
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:22px;
+      font-size:14px;
+    }
+
+    nav a{
+      color:var(--gris);
+      text-decoration:none;
+      transition:.2s;
+    }
+
+    nav a:hover{color:var(--azul)}
+
+    .btn{
+      display:inline-block;
+      border:none;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:8px;
+      font-weight:700;
+      transition:.2s;
+    }
+
+    .btn-primary{background:var(--azul);color:white}
+    .btn-primary:hover{background:#0b3d69}
+    .btn-secondary{background:white;color:var(--azul);border:1px solid var(--azul)}
+
+    .hero{
+      background:linear-gradient(135deg,#eef7fc 0%,#ffffff 60%);
+      padding:64px 20px;
+    }
+
+    .hero-inner{
+      max-width:1100px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:44px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      color:var(--azul);
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+
+    h1{
+      font-size:48px;
+      line-height:1.08;
+      margin-bottom:18px;
+      color:var(--azul-oscuro);
+    }
+
+    .hero p{
+      color:var(--gris);
+      font-size:18px;
+      max-width:620px;
+      margin-bottom:26px;
+    }
+
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+
+    .hero-card{
+      background:white;
+      border:1px solid var(--borde);
+      border-radius:18px;
+      padding:26px;
+      box-shadow:0 16px 40px rgba(15,76,129,.10);
+    }
+
+    .hero-card h3{margin-bottom:8px;color:var(--azul)}
+    .hero-card p{font-size:14px;margin-bottom:18px}
+
+    .schedule{display:grid;gap:12px}
+    .schedule-item{
+      padding:14px;
+      border:1px solid var(--borde);
+      border-radius:10px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      background:#fbfdff;
+    }
+    .schedule-item strong{color:var(--texto)}
+
+    section{padding:58px 20px}
+    .white{background:white}
+    .soft{background:#eef6fb}
+
+    .container{max-width:1100px;margin:auto}
+
+    .section-title{text-align:center;margin-bottom:34px}
+    .section-title h2{font-size:32px;margin-bottom:10px;color:var(--azul-oscuro)}
+    .section-title p{color:var(--gris);max-width:700px;margin:auto}
+
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+
+    .card{
+      background:white;
+      border:1px solid var(--borde);
+      border-radius:14px;
+      padding:24px;
+      transition:transform .2s, box-shadow .2s;
+    }
+
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 28px rgba(15,76,129,.08);
+    }
+
+    .icon{
+      width:46px;height:46px;border-radius:12px;
+      background:var(--azul-claro);
+      display:grid;place-items:center;
+      font-size:23px;margin-bottom:16px;
+    }
+
+    .card h3{margin-bottom:8px;color:var(--texto)}
+    .card p{color:var(--gris);font-size:14px}
+    .card ul{margin:12px 0 0 18px;color:var(--gris);font-size:14px}
+
+    .doctor{text-align:center}
+    .avatar{
+      width:88px;height:88px;margin:0 auto 14px;border-radius:50%;
+      background:linear-gradient(145deg,#dbeaf5,#f5f9fc);
+      display:grid;place-items:center;font-size:38px;border:1px solid var(--borde);
+    }
+    .doctor small{color:var(--azul-medio);font-weight:700;display:block;margin-bottom:8px}
+
+    .exam-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      padding:18px 0;
+      border-bottom:1px solid var(--borde);
+    }
+    .exam-row:last-child{border-bottom:none}
+    .exam-row p{color:var(--gris);font-size:14px;margin-top:4px}
+    .tag{
+      background:var(--azul-claro);
+      color:var(--azul);
+      border-radius:999px;
+      padding:7px 11px;
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .agreement{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+    }
+    .agreement .icon{flex:0 0 46px;margin:0}
+
+    .info-band{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:28px;
+    }
+    .info-band div{
+      background:var(--azul-claro);
+      border-radius:12px;
+      padding:20px;
+      text-align:center;
+    }
+    .info-band strong{display:block;font-size:23px;color:var(--azul);margin-bottom:4px}
+
+    .location{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .map-placeholder{
+      min-height:280px;
+      border-radius:16px;
+      border:1px solid var(--borde);
+      background:
+        linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.28)),
+        repeating-linear-gradient(45deg,#e8f1f7,#e8f1f7 16px,#f5f9fc 16px,#f5f9fc 32px);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:30px;
+      color:var(--azul);
+      font-weight:700;
+    }
+
+    .faq{display:grid;gap:12px;max-width:820px;margin:auto}
+    details{
+      background:white;
+      border:1px solid var(--borde);
+      border-radius:12px;
+      padding:16px 18px;
+    }
+    summary{font-weight:700;cursor:pointer;color:var(--texto)}
+    details p{margin-top:10px;color:var(--gris);font-size:14px}
+
+    footer{
+      background:var(--azul-oscuro);
+      color:#d9e8f5;
+      padding:34px 20px;
+    }
+
+    footer .container{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    @media(max-width:900px){
+      nav ul{gap:12px}
+      .hero-inner{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .location{grid-template-columns:1fr}
+    }
+
+    @media(max-width:760px){
+      nav ul{display:none}
+      h1{font-size:38px}
+      .grid-3,.grid-2{grid-template-columns:1fr}
+      .info-band{grid-template-columns:1fr}
+    }
+
+    @media(max-width:520px){
+      .nav .btn{display:none}
+      .hero{padding:42px 18px}
+      h1{font-size:34px}
+      .hero p{font-size:16px}
+      section{padding:44px 18px}
+      .grid-4{grid-template-columns:1fr}
+      .exam-row{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">Atención médica integral · Lunes a sábado · Reserva de horas online</div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#inicio">
+        <div class="logo">✚</div>
+        Clínica Nova
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="#especialidades">Especialidades</a></li>
+          <li><a href="#profesionales">Profesionales</a></li>
+          <li><a href="#examenes">Exámenes</a></li>
+          <li><a href="#convenios">Convenios</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn-primary" href="#horarios">Reservar hora</a>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Salud cercana y confiable</div>
+          <h1>Tu salud, en buenas manos.</h1>
+          <p>
+            En Clínica Nova reunimos atención médica, diagnóstico y seguimiento
+            en un mismo lugar, con profesionales comprometidos con tu bienestar.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#horarios">Reservar una hora</a>
+            <a class="btn btn-secondary" href="#especialidades">Ver especialidades</a>
+          </div>
+        </div>
+
+        <div class="hero-card" id="horarios">
+          <h3>Próximas horas disponibles</h3>
+          <p>Ejemplo informativo de disponibilidad por especialidad.</p>
+          <div class="schedule">
+            <div class="schedule-item"><div><strong>Medicina General</strong><br><small>Dra. Paula Méndez</small></div><strong>Hoy · 17:30</strong></div>
+            <div class="schedule-item"><div><strong>Dermatología</strong><br><small>Dr. Andrés Rojas</small></div><strong>Mañana · 10:00</strong></div>
+            <div class="schedule-item"><div><strong>Kinesiología</strong><br><small>Camila Torres</small></div><strong>Mañana · 15:45</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="especialidades">
+      <div class="container">
+        <div class="section-title">
+          <h2>Especialidades</h2>
+          <p>Atención integral para distintas etapas de la vida y necesidades de salud.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card"><div class="icon">🩺</div><h3>Medicina General</h3><p>Evaluación inicial, controles preventivos y orientación de salud para adolescentes y adultos.</p></article>
+          <article class="card"><div class="icon">🧴</div><h3>Dermatología</h3><p>Evaluación de piel, cabello y uñas, además de controles dermatológicos preventivos.</p></article>
+          <article class="card"><div class="icon">❤️</div><h3>Cardiología</h3><p>Prevención y seguimiento de factores asociados a la salud cardiovascular.</p></article>
+          <article class="card"><div class="icon">🦴</div><h3>Traumatología</h3><p>Evaluación de lesiones musculares, articulares y problemas relacionados al movimiento.</p></article>
+          <article class="card"><div class="icon">👶</div><h3>Pediatría</h3><p>Controles de crecimiento, desarrollo y atención general para niños y adolescentes.</p></article>
+          <article class="card"><div class="icon">🧠</div><h3>Salud Mental</h3><p>Acompañamiento psicológico y orientación para el bienestar emocional.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="profesionales" class="white">
+      <div class="container">
+        <div class="section-title">
+          <h2>Nuestros profesionales</h2>
+          <p>Un equipo multidisciplinario con experiencia en atención clínica y seguimiento.</p>
+        </div>
+
+        <div class="grid-4">
+          <article class="card doctor"><div class="avatar">👩🏻‍⚕️</div><h3>Dra. Paula Méndez</h3><small>Medicina General</small><p>Atención integral y controles preventivos para adolescentes y adultos.</p></article>
+          <article class="card doctor"><div class="avatar">👨🏻‍⚕️</div><h3>Dr. Andrés Rojas</h3><small>Dermatología</small><p>Evaluación clínica y seguimiento de distintas condiciones dermatológicas.</p></article>
+          <article class="card doctor"><div class="avatar">👩🏻‍⚕️</div><h3>Dra. Javiera Soto</h3><small>Cardiología</small><p>Prevención, evaluación y control de salud cardiovascular.</p></article>
+          <article class="card doctor"><div class="avatar">👨🏽‍⚕️</div><h3>Dr. Tomás Araya</h3><small>Traumatología</small><p>Diagnóstico y seguimiento de lesiones musculoesqueléticas.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="examenes" class="soft">
+      <div class="container">
+        <div class="section-title">
+          <h2>Exámenes y diagnóstico</h2>
+          <p>Servicios diagnósticos en el mismo centro para facilitar la continuidad de tu atención.</p>
+        </div>
+
+        <div class="card">
+          <div class="exam-row"><div><strong>Laboratorio clínico</strong><p>Exámenes generales de sangre y muestras clínicas.</p></div><span class="tag">Lun–Sáb</span></div>
+          <div class="exam-row"><div><strong>Ecografías</strong><p>Evaluaciones de imagen solicitadas por profesionales médicos.</p></div><span class="tag">Con hora</span></div>
+          <div class="exam-row"><div><strong>Electrocardiograma</strong><p>Registro de actividad eléctrica del corazón para evaluación médica.</p></div><span class="tag">15 min</span></div>
+          <div class="exam-row"><div><strong>Chequeo preventivo</strong><p>Conjunto de evaluaciones orientadas al control general de salud.</p></div><span class="tag">Programa Nova</span></div>
+          <div class="exam-row"><div><strong>Radiografías</strong><p>Estudios simples de imagen para apoyo diagnóstico.</p></div><span class="tag">Lun–Vie</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="convenios" class="white">
+      <div class="container">
+        <div class="section-title">
+          <h2>Convenios y formas de atención</h2>
+          <p>Distintas alternativas para acceder a consultas y servicios de Clínica Nova.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card agreement"><div class="icon">🏢</div><div><h3>Convenios con empresas</h3><p>Programas preventivos y condiciones preferentes para organizaciones asociadas.</p></div></article>
+          <article class="card agreement"><div class="icon">🛡️</div><div><h3>Seguros complementarios</h3><p>Documentación y comprobantes disponibles para procesos de reembolso.</p></div></article>
+          <article class="card agreement"><div class="icon">💳</div><div><h3>Atención particular</h3><p>Pago directo para consultas, procedimientos y exámenes disponibles.</p></div></article>
+          <article class="card agreement"><div class="icon">🌿</div><div><h3>Plan Preventivo Nova</h3><p>Programa ficticio de chequeos anuales y seguimiento preventivo.</p></div></article>
+        </div>
+
+        <div class="info-band">
+          <div><strong>18</strong><span>Especialidades</span></div>
+          <div><strong>35+</strong><span>Profesionales</span></div>
+          <div><strong>12 años</strong><span>de experiencia</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ubicacion">
+      <div class="container">
+        <div class="section-title">
+          <h2>Visítanos</h2>
+          <p>Información ficticia para completar la experiencia del sitio.</p>
+        </div>
+
+        <div class="location">
+          <div class="card">
+            <div class="icon">📍</div>
+            <h3>Clínica Nova Viña del Mar</h3>
+            <p>Av. Nueva Salud 2450, Viña del Mar.</p>
+            <ul>
+              <li>Lunes a viernes: 08:00–20:00</li>
+              <li>Sábado: 09:00–14:00</li>
+              <li>Domingo: Cerrado</li>
+              <li>Estacionamiento para pacientes</li>
+            </ul>
+          </div>
+          <div class="map-placeholder">🗺️<br><br>Mapa referencial<br><small>(sin geolocalización ni datos reales)</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preguntas" class="white">
+      <div class="container">
+        <div class="section-title">
+          <h2>Preguntas frecuentes</h2>
+          <p>Información general para quienes visitan Clínica Nova.</p>
+        </div>
+
+        <div class="faq">
+          <details><summary>¿Necesito una orden médica para realizarme un examen?</summary><p>Depende del examen. Algunos controles generales no la requieren, mientras que otros deben ser solicitados por un profesional.</p></details>
+          <details><summary>¿Puedo cambiar una hora médica?</summary><p>Sí. En un sitio real esta opción estaría disponible desde el sistema de reservas o mediante los canales de contacto.</p></details>
+          <details><summary>¿Atienden los días sábado?</summary><p>Sí, la clínica presenta atención ficticia los sábados entre 09:00 y 14:00.</p></details>
+          <details><summary>¿Dónde puedo revisar los resultados de mis exámenes?</summary><p>En un servicio real existiría un portal privado para pacientes. Esta demostración no recopila ni almacena datos.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div><strong>Clínica Nova</strong><br><small>Sitio ficticio para actividad educativa de experiencia usuaria.</small></div>
+      <div><small>Av. Nueva Salud 2450 · Viña del Mar</small><br><small>Contacto ficticio: +56 32 245 8800</small></div>
+    </div>
+  </footer>
+
+</body>
+</html>
